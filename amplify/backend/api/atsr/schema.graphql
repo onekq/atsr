@@ -1,0 +1,40 @@
+type JobRequirement @model @auth(
+  rules: [
+    { allow: groups, groups: ["applicants"], operations: [read] },
+    { allow: groups, groups: ["admin", "HR"] }
+  ]
+) {
+  id: ID!
+  department: String!
+  function: String!
+  rank: String!
+  description: String!
+}
+
+type Applicant @model @auth(
+  rules: [
+    { allow: groups, groups: ["admin"] },
+    { allow: groups, groups: ["HR"], operations: [read] },
+    { allow: owner, ownerField: "id" }
+  ]
+) {
+  id: ID!
+  email: String!
+  name: String!
+  resume: String!
+  contactInformation: String!
+}
+
+type JobApplication @model @auth(
+  rules: [
+    { allow: owner, ownerField: "applicantID" },
+    { allow: groups, groups: ["HR"] }
+  ]
+) {
+  id: ID!
+  applicantID: ID! @index(name: "byApplicant", queryField: "applicationsByApplicant")
+  jobRequirementID: ID! @index(name: "byJobRequirement", queryField: "applicationsByJobRequirement")
+  applicationNumber: String! @index(name: "byApplicationNumber", queryField: "applicationsByApplicationNumber")
+  status: String!
+  passcode: String!
+}
