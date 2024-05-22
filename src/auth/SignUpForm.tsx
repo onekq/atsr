@@ -97,8 +97,9 @@ const SignUpForm: React.FC<SignUpFormProps> = () => {
               defaultValue=""
               {...register('role', { required: true })}
             >
-              <MenuItem value="shopper">Shopper</MenuItem>
-              <MenuItem value="owner">Owner</MenuItem>
+              <MenuItem value="admuin">Admin</MenuItem>
+              <MenuItem value="HR">HR</MenuItem>
+              <MenuItem value="applicant">Applicant</MenuItem>
             </Select>
           </FormControl>
           <Button
