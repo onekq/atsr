@@ -6,8 +6,8 @@ type JobRequirement @model @auth(
 ) {
   id: ID!
   department: String!
-  function: String!
   rank: String!
+  title: String!
   description: String!
 }
 

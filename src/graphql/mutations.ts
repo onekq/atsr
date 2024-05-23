@@ -15,8 +15,8 @@ export const createJobRequirement = /* GraphQL */ `mutation CreateJobRequirement
   createJobRequirement(input: $input, condition: $condition) {
     id
     department
-    function
     rank
+    title
     description
     createdAt
     updatedAt
@@ -34,8 +34,8 @@ export const updateJobRequirement = /* GraphQL */ `mutation UpdateJobRequirement
   updateJobRequirement(input: $input, condition: $condition) {
     id
     department
-    function
     rank
+    title
     description
     createdAt
     updatedAt
@@ -53,8 +53,8 @@ export const deleteJobRequirement = /* GraphQL */ `mutation DeleteJobRequirement
   deleteJobRequirement(input: $input, condition: $condition) {
     id
     department
-    function
     rank
+    title
     description
     createdAt
     updatedAt

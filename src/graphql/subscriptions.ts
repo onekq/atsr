@@ -14,8 +14,8 @@ export const onCreateJobRequirement = /* GraphQL */ `subscription OnCreateJobReq
   onCreateJobRequirement(filter: $filter) {
     id
     department
-    function
     rank
+    title
     description
     createdAt
     updatedAt
@@ -32,8 +32,8 @@ export const onUpdateJobRequirement = /* GraphQL */ `subscription OnUpdateJobReq
   onUpdateJobRequirement(filter: $filter) {
     id
     department
-    function
     rank
+    title
     description
     createdAt
     updatedAt
@@ -50,8 +50,8 @@ export const onDeleteJobRequirement = /* GraphQL */ `subscription OnDeleteJobReq
   onDeleteJobRequirement(filter: $filter) {
     id
     department
-    function
     rank
+    title
     description
     createdAt
     updatedAt

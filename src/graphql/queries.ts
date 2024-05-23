@@ -12,8 +12,8 @@ export const getJobRequirement = /* GraphQL */ `query GetJobRequirement($id: ID!
   getJobRequirement(id: $id) {
     id
     department
-    function
     rank
+    title
     description
     createdAt
     updatedAt
@@ -33,8 +33,8 @@ export const listJobRequirements = /* GraphQL */ `query ListJobRequirements(
     items {
       id
       department
-      function
       rank
+      title
       description
       createdAt
       updatedAt

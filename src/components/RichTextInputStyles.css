@@ -1,0 +1,7 @@
+.custom-richtext .ql-editor {
+    min-height: 300px;  /* Set the minimum height */
+}
+
+.custom-richtext .ql-toolbar {
+    display: none;  /* Hide the toolbar */
+}

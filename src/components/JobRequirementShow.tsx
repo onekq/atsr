@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
-import { useDataProvider, useNotify, TextField, Button, DeleteButton } from 'react-admin';
+import { useState } from 'react';
+import { useDataProvider, useNotify, TextField, RichTextField, Button, DeleteButton, Labeled } from 'react-admin';
 import { Show } from '../rbac/detail/Show';
 import { SimpleShowLayout } from '../rbac/detail/SimpleShowLayout';
 import { IfCanAccess } from '../rbac/IfCanAccess';
 import ApplyDialog from './ApplyDialog';
 import { useParams } from 'react-router-dom';
+import { Box, useMediaQuery, useTheme } from '@mui/material';
 
 interface Applicant {
     id: string;
@@ -18,11 +19,13 @@ const isErrorWithMessage = (error: unknown): error is { message: string } => {
     return typeof error === 'object' && error !== null && 'message' in error;
 };
 
-export const JobRequirementShow: React.FC = () => {
+export const JobRequirementShow = () => {
     const [dialogOpen, setDialogOpen] = useState(false);
     const { id: jobRequirementID } = useParams<{ id: string }>();
     const dataProvider = useDataProvider();
     const notify = useNotify();
+    const theme = useTheme();
+    const isSmall = useMediaQuery(theme.breakpoints.down('md'));
 
     const handleApply = () => {
         setDialogOpen(true);
@@ -58,10 +61,24 @@ export const JobRequirementShow: React.FC = () => {
     return (
         <Show>
             <SimpleShowLayout>
-                <TextField source="department" />
-                <TextField source="function" />
-                <TextField source="rank" />
-                <TextField source="description" />
+                <Box display="flex" flexDirection={isSmall ? 'column' : 'row'} width="100%">
+                    <Box width={isSmall ? '100%' : '30%'} marginRight={isSmall ? 0 : 2} display="flex" flexDirection="column" justifyContent="space-between" height="300px">
+                        <Labeled label="Department">
+                            <TextField source="department" />
+                        </Labeled>
+                        <Labeled label="Rank">
+                            <TextField source="rank" />
+                        </Labeled>
+                        <Labeled label="Title">
+                            <TextField source="title" />
+                        </Labeled>
+                    </Box>
+                    <Box flex={1} display="flex" flexDirection="column">
+                        <Labeled label="Description">
+                            <RichTextField source="description" />
+                        </Labeled>
+                    </Box>
+                </Box>
                 <IfCanAccess action="delete" resource="jobRequirements">
                     <DeleteButton />
                 </IfCanAccess>

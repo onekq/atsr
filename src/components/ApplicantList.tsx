@@ -1,7 +1,7 @@
 import React from 'react';
 import { TextField, ShowButton } from 'react-admin';
 import { List } from '../rbac/list/List';
-import { Datagrid } from '../rbac/list/Datagrid';
+import { CustomDatagrid as Datagrid} from './CustomDatagrid';
 
 export const ApplicantList: React.FC = () =>
     <List>

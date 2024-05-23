@@ -102,7 +102,7 @@ export const JobApplicationDashboard = () => {
                                                     {...provided.dragHandleProps}
                                                     style={{ margin: '10px 0', padding: '10px', backgroundColor: '#fff', ...provided.draggableProps.style }}
                                                 >
-                                                    {jobRequirements[application.jobRequirementID]?.department} - {applicants[application.applicantID]?.name}
+                                                    {jobRequirements[application.jobRequirementID]?.title} - {applicants[application.applicantID]?.email}
                                                 </div>
                                             )}
                                         </Draggable>

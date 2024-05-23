@@ -1,32 +1,27 @@
 import React from 'react';
-import { Create, SimpleForm, TextInput, SelectInput } from 'react-admin';
+import { Create, SimpleForm, SelectInput, TextInput, required } from 'react-admin';
+import { Box, useMediaQuery, useTheme } from '@mui/material';
+import { MyRichTextInput } from './MyRichTextInput';
+import { departmentChoices, rankChoices } from './choices';
 
-const departmentChoices = [
-    { id: 'Admin', name: 'Admin' },
-    { id: 'Sales and Marketing', name: 'Sales and Marketing' },
-    { id: 'Customer Success and Support', name: 'Customer Success and Support' },
-    { id: 'Fulfillment and Operations', name: 'Fulfillment and Operations' },
-    { id: 'Finance and Accounting', name: 'Finance and Accounting' },
-    { id: 'Legal and HR', name: 'Legal and HR' },
-];
+export const JobRequirementCreate = () => {
+    const theme = useTheme();
+    const isSmall = useMediaQuery(theme.breakpoints.down('md'));
 
-const functionChoices = [
-    { id: 'Intern', name: 'Intern' },
-    { id: 'Associate/Junior', name: 'Associate/Junior' },
-    { id: 'Senior Individual', name: 'Senior Individual' },
-    { id: 'Manager', name: 'Manager' },
-    { id: 'Senior Manager/Director', name: 'Senior Manager/Director' },
-    { id: 'VP', name: 'VP' },
-    { id: 'C-level', name: 'C-level' },
-];
-
-export const JobRequirementCreate = () => (
-    <Create>
-        <SimpleForm>
-            <SelectInput source="department" choices={departmentChoices} optionText="name" optionValue="id" />
-            <SelectInput source="function" choices={functionChoices} optionText="name" optionValue="id" />
-            <TextInput source="rank" />
-            <TextInput source="description" />
-        </SimpleForm>
-    </Create>
-);
+    return (
+        <Create>
+            <SimpleForm>
+                <Box display="flex" flexDirection={isSmall ? 'column' : 'row'} width="100%">
+                    <Box width={isSmall ? '100%' : '30%'} marginRight={isSmall ? 0 : 2} display="flex" flexDirection="column" justifyContent="space-between" height="300px">
+                        <SelectInput source="department" choices={departmentChoices} optionText="name" optionValue="id" validate={required()} fullWidth />
+                        <SelectInput source="rank" choices={rankChoices} optionText="name" optionValue="id" validate={required()} fullWidth />
+                        <TextInput source="title" validate={required()} fullWidth />
+                    </Box>
+                    <Box flex={1} display="flex" flexDirection="column">
+                        <MyRichTextInput source="description" validate={required()} fullWidth />
+                    </Box>
+                </Box>
+            </SimpleForm>
+        </Create>
+    );
+};

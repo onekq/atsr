@@ -1,6 +1,6 @@
 import { TextField, ShowButton, ReferenceField } from 'react-admin';
 import { List } from '../rbac/list/List';
-import { Datagrid } from '../rbac/list/Datagrid';
+import { CustomDatagrid as Datagrid} from './CustomDatagrid';
 
 export const JobApplicationList = () => (
     <List>
@@ -14,8 +14,11 @@ export const JobApplicationList = () => (
             <ReferenceField source="jobRequirementID" reference="JobRequirements" label="Department">
                 <TextField source="department" />
             </ReferenceField>
-            <ReferenceField source="jobRequirementID" reference="JobRequirements" label="Function">
-                <TextField source="function" />
+            <ReferenceField source="jobRequirementID" reference="JobRequirements" label="Rank">
+                <TextField source="rank" />
+            </ReferenceField>
+            <ReferenceField source="jobRequirementID" reference="JobRequirements" label="Title">
+                <TextField source="title" />
             </ReferenceField>
             <TextField source="applicationNumber" />
             <TextField source="status" />

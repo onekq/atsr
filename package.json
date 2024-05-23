@@ -14,6 +14,7 @@
     "@types/lodash": "^4.17.4",
     "aws-amplify": "^6.3.2",
     "next": "14.2.3",
+    "ra-input-rich-text": "^4.16.18",
     "react": "^18",
     "react-admin": "^4.16.18",
     "react-admin-amplify-6": "^1.0.19",
