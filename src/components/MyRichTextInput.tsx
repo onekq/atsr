@@ -6,8 +6,6 @@ interface MyRichTextInputProps {
     [key: string]: any;
 }
 
-const MyRichTextInputToolbar = () => null; // Empty toolbar component
-
 export const MyRichTextInput: React.FC<MyRichTextInputProps> = ({ size, ...props }) => (
     //@ts-ignore
     <RichTextInput
@@ -22,7 +20,6 @@ export const MyRichTextInput: React.FC<MyRichTextInputProps> = ({ size, ...props
                 },
             },
         }}
-        toolbar={<MyRichTextInputToolbar />}
         {...props}
     />
 );
