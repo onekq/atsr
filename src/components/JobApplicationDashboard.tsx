@@ -88,7 +88,7 @@ export const JobApplicationDashboard = () => {
                                 className="column"
                                 {...provided.droppableProps}
                                 ref={provided.innerRef}
-                                style={{ margin: '0 10px', flex: 1, minHeight: '300px', backgroundColor: '#f0f0f0', padding: '10px' }}
+                                style={{ margin: '0 10px', flex: 1, width: '150px', minHeight: '300px', backgroundColor: '#f0f0f0', padding: '10px' }}
                             >
                                 <h3>{status}</h3>
                                 {applications
@@ -100,7 +100,7 @@ export const JobApplicationDashboard = () => {
                                                     ref={provided.innerRef}
                                                     {...provided.draggableProps}
                                                     {...provided.dragHandleProps}
-                                                    style={{ margin: '10px 0', padding: '10px', backgroundColor: '#fff', ...provided.draggableProps.style }}
+                                                    style={{ margin: '10px 0', padding: '10px', fontSize: '12px', backgroundColor: '#fff', ...provided.draggableProps.style }}
                                                 >
                                                     {jobRequirements[application.jobRequirementID]?.title} - {applicants[application.applicantID]?.email}
                                                 </div>
