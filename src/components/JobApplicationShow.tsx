@@ -1,16 +1,12 @@
 import { TextField, ReferenceField } from 'react-admin';
 import { Show } from '../rbac/detail/Show';
 import { SimpleShowLayout } from '../rbac/detail/SimpleShowLayout';
+import { JobRequirementLinkField } from './JobRequirementLinkField';
 
 export const JobApplicationShow = () => (
     <Show>
         <SimpleShowLayout>
-            <ReferenceField source="applicantID" reference="Applicants" label="Name">
-                <TextField source="name" />
-            </ReferenceField>
-            <ReferenceField source="applicantID" reference="Applicants" label="Email">
-                <TextField source="email" />
-            </ReferenceField>
+            <JobRequirementLinkField source="jobRequirementID" label="Job ID" />
             <ReferenceField source="jobRequirementID" reference="JobRequirements" label="Department">
                 <TextField source="department" />
             </ReferenceField>
@@ -20,9 +16,13 @@ export const JobApplicationShow = () => (
             <ReferenceField source="jobRequirementID" reference="JobRequirements" label="Title">
                 <TextField source="title" />
             </ReferenceField>
-            <TextField source="applicationNumber" />
-            <TextField source="status" />
-            <TextField source="passcode" />
+            <ReferenceField source="applicantID" reference="Applicants" label="Name">
+                <TextField source="name" />
+            </ReferenceField>
+            <ReferenceField source="applicantID" reference="Applicants" label="Email">
+                <TextField source="email" />
+            </ReferenceField>
+            <TextField source="status" label="Status" />
         </SimpleShowLayout>
     </Show>
 );

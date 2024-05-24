@@ -35,13 +35,13 @@ const roleDefinitions = {
         { action: ["list", "edit", "create", "show", "delete"], resource: "jobRequirements" },
         { action: ["read"], resource: "jobRequirements.*" },
         { action: ["list", "show"], resource: "applicants" },
-        { action: ["list", "edit", "show", "delete"], resource: "jobApplications" },
+        { action: ["list", "show", "delete"], resource: "jobApplications" },
         { action: ["read"], resource: "jobApplications.*" },
     ],
     HR: [
         { action: ["list", "edit", "create", "show", "delete"], resource: "jobRequirements" },
         { action: ["read"], resource: "jobRequirements.*" },
-        { action: ["list", "edit", "show", "dashboard"], resource: "jobApplications" },
+        { action: ["list", "show", "dashboard"], resource: "jobApplications" },
         { action: ["read"], resource: "jobApplications.*" },
     ],
     applicants: [
