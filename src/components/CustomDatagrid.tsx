@@ -11,6 +11,7 @@ const CustomHeaderCell = styled(TableCell)(({ theme }) => ({
     fontWeight: 'bold',
     backgroundColor: '#000', // Black background color
     color: '#fff', // White text color
+    border: '1px solid #ccc', // Adding borders
 }));
 
 const CustomDatagridHeader: React.FC<CustomDatagridProps> = ({ children, hasBulkActions }) => (
@@ -27,5 +28,7 @@ const CustomDatagridHeader: React.FC<CustomDatagridProps> = ({ children, hasBulk
 );
 
 export const CustomDatagrid: React.FC<CustomDatagridProps> = (props) => (
-    <Datagrid {...props} header={<CustomDatagridHeader hasBulkActions={props.hasBulkActions} />}>{props.children}</Datagrid>
+    <Datagrid {...props} header={<CustomDatagridHeader hasBulkActions={props.hasBulkActions} />}>
+        {props.children}
+    </Datagrid>
 );
