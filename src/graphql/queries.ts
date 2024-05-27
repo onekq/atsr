@@ -15,6 +15,10 @@ export const getJobRequirement = /* GraphQL */ `query GetJobRequirement($id: ID!
     rank
     title
     description
+    jobApplications {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -55,6 +59,10 @@ export const getApplicant = /* GraphQL */ `query GetApplicant($id: ID!) {
     name
     resume
     contactInformation
+    jobApplications {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -93,7 +101,6 @@ export const getJobApplication = /* GraphQL */ `query GetJobApplication($id: ID!
     id
     applicantID
     jobRequirementID
-    applicationNumber
     status
     passcode
     createdAt
@@ -115,7 +122,6 @@ export const listJobApplications = /* GraphQL */ `query ListJobApplications(
       id
       applicantID
       jobRequirementID
-      applicationNumber
       status
       passcode
       createdAt
@@ -148,7 +154,6 @@ export const applicationsByApplicant = /* GraphQL */ `query ApplicationsByApplic
       id
       applicantID
       jobRequirementID
-      applicationNumber
       status
       passcode
       createdAt
@@ -181,7 +186,6 @@ export const applicationsByJobRequirement = /* GraphQL */ `query ApplicationsByJ
       id
       applicantID
       jobRequirementID
-      applicationNumber
       status
       passcode
       createdAt
@@ -195,37 +199,4 @@ export const applicationsByJobRequirement = /* GraphQL */ `query ApplicationsByJ
 ` as GeneratedQuery<
   APITypes.ApplicationsByJobRequirementQueryVariables,
   APITypes.ApplicationsByJobRequirementQuery
->;
-export const applicationsByApplicationNumber = /* GraphQL */ `query ApplicationsByApplicationNumber(
-  $applicationNumber: String!
-  $sortDirection: ModelSortDirection
-  $filter: ModelJobApplicationFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  applicationsByApplicationNumber(
-    applicationNumber: $applicationNumber
-    sortDirection: $sortDirection
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-  ) {
-    items {
-      id
-      applicantID
-      jobRequirementID
-      applicationNumber
-      status
-      passcode
-      createdAt
-      updatedAt
-      __typename
-    }
-    nextToken
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.ApplicationsByApplicationNumberQueryVariables,
-  APITypes.ApplicationsByApplicationNumberQuery
 >;

@@ -69,6 +69,24 @@ export type JobRequirement = {
   rank: string,
   title: string,
   description: string,
+  jobApplications?: ModelJobApplicationConnection | null,
+  createdAt: string,
+  updatedAt: string,
+};
+
+export type ModelJobApplicationConnection = {
+  __typename: "ModelJobApplicationConnection",
+  items:  Array<JobApplication | null >,
+  nextToken?: string | null,
+};
+
+export type JobApplication = {
+  __typename: "JobApplication",
+  id: string,
+  applicantID: string,
+  jobRequirementID: string,
+  status: string,
+  passcode: string,
   createdAt: string,
   updatedAt: string,
 };
@@ -113,6 +131,7 @@ export type Applicant = {
   name: string,
   resume: string,
   contactInformation: string,
+  jobApplications?: ModelJobApplicationConnection | null,
   createdAt: string,
   updatedAt: string,
 };
@@ -133,7 +152,6 @@ export type CreateJobApplicationInput = {
   id?: string | null,
   applicantID: string,
   jobRequirementID: string,
-  applicationNumber: string,
   status: string,
   passcode: string,
 };
@@ -141,7 +159,6 @@ export type CreateJobApplicationInput = {
 export type ModelJobApplicationConditionInput = {
   applicantID?: ModelIDInput | null,
   jobRequirementID?: ModelIDInput | null,
-  applicationNumber?: ModelStringInput | null,
   status?: ModelStringInput | null,
   passcode?: ModelStringInput | null,
   and?: Array< ModelJobApplicationConditionInput | null > | null,
@@ -167,23 +184,10 @@ export type ModelIDInput = {
   size?: ModelSizeInput | null,
 };
 
-export type JobApplication = {
-  __typename: "JobApplication",
-  id: string,
-  applicantID: string,
-  jobRequirementID: string,
-  applicationNumber: string,
-  status: string,
-  passcode: string,
-  createdAt: string,
-  updatedAt: string,
-};
-
 export type UpdateJobApplicationInput = {
   id: string,
   applicantID?: string | null,
   jobRequirementID?: string | null,
-  applicationNumber?: string | null,
   status?: string | null,
   passcode?: string | null,
 };
@@ -234,7 +238,6 @@ export type ModelJobApplicationFilterInput = {
   id?: ModelIDInput | null,
   applicantID?: ModelIDInput | null,
   jobRequirementID?: ModelIDInput | null,
-  applicationNumber?: ModelStringInput | null,
   status?: ModelStringInput | null,
   passcode?: ModelStringInput | null,
   createdAt?: ModelStringInput | null,
@@ -242,12 +245,6 @@ export type ModelJobApplicationFilterInput = {
   and?: Array< ModelJobApplicationFilterInput | null > | null,
   or?: Array< ModelJobApplicationFilterInput | null > | null,
   not?: ModelJobApplicationFilterInput | null,
-};
-
-export type ModelJobApplicationConnection = {
-  __typename: "ModelJobApplicationConnection",
-  items:  Array<JobApplication | null >,
-  nextToken?: string | null,
 };
 
 export enum ModelSortDirection {
@@ -313,7 +310,6 @@ export type ModelSubscriptionApplicantFilterInput = {
 export type ModelSubscriptionJobApplicationFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   jobRequirementID?: ModelSubscriptionIDInput | null,
-  applicationNumber?: ModelSubscriptionStringInput | null,
   status?: ModelSubscriptionStringInput | null,
   passcode?: ModelSubscriptionStringInput | null,
   createdAt?: ModelSubscriptionStringInput | null,
@@ -336,6 +332,10 @@ export type CreateJobRequirementMutation = {
     rank: string,
     title: string,
     description: string,
+    jobApplications?:  {
+      __typename: "ModelJobApplicationConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -354,6 +354,10 @@ export type UpdateJobRequirementMutation = {
     rank: string,
     title: string,
     description: string,
+    jobApplications?:  {
+      __typename: "ModelJobApplicationConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -372,6 +376,10 @@ export type DeleteJobRequirementMutation = {
     rank: string,
     title: string,
     description: string,
+    jobApplications?:  {
+      __typename: "ModelJobApplicationConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -390,6 +398,10 @@ export type CreateApplicantMutation = {
     name: string,
     resume: string,
     contactInformation: string,
+    jobApplications?:  {
+      __typename: "ModelJobApplicationConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -408,6 +420,10 @@ export type UpdateApplicantMutation = {
     name: string,
     resume: string,
     contactInformation: string,
+    jobApplications?:  {
+      __typename: "ModelJobApplicationConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -426,6 +442,10 @@ export type DeleteApplicantMutation = {
     name: string,
     resume: string,
     contactInformation: string,
+    jobApplications?:  {
+      __typename: "ModelJobApplicationConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -442,7 +462,6 @@ export type CreateJobApplicationMutation = {
     id: string,
     applicantID: string,
     jobRequirementID: string,
-    applicationNumber: string,
     status: string,
     passcode: string,
     createdAt: string,
@@ -461,7 +480,6 @@ export type UpdateJobApplicationMutation = {
     id: string,
     applicantID: string,
     jobRequirementID: string,
-    applicationNumber: string,
     status: string,
     passcode: string,
     createdAt: string,
@@ -480,7 +498,6 @@ export type DeleteJobApplicationMutation = {
     id: string,
     applicantID: string,
     jobRequirementID: string,
-    applicationNumber: string,
     status: string,
     passcode: string,
     createdAt: string,
@@ -500,6 +517,10 @@ export type GetJobRequirementQuery = {
     rank: string,
     title: string,
     description: string,
+    jobApplications?:  {
+      __typename: "ModelJobApplicationConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -540,6 +561,10 @@ export type GetApplicantQuery = {
     name: string,
     resume: string,
     contactInformation: string,
+    jobApplications?:  {
+      __typename: "ModelJobApplicationConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -578,7 +603,6 @@ export type GetJobApplicationQuery = {
     id: string,
     applicantID: string,
     jobRequirementID: string,
-    applicationNumber: string,
     status: string,
     passcode: string,
     createdAt: string,
@@ -600,7 +624,6 @@ export type ListJobApplicationsQuery = {
       id: string,
       applicantID: string,
       jobRequirementID: string,
-      applicationNumber: string,
       status: string,
       passcode: string,
       createdAt: string,
@@ -626,7 +649,6 @@ export type ApplicationsByApplicantQuery = {
       id: string,
       applicantID: string,
       jobRequirementID: string,
-      applicationNumber: string,
       status: string,
       passcode: string,
       createdAt: string,
@@ -652,33 +674,6 @@ export type ApplicationsByJobRequirementQuery = {
       id: string,
       applicantID: string,
       jobRequirementID: string,
-      applicationNumber: string,
-      status: string,
-      passcode: string,
-      createdAt: string,
-      updatedAt: string,
-    } | null >,
-    nextToken?: string | null,
-  } | null,
-};
-
-export type ApplicationsByApplicationNumberQueryVariables = {
-  applicationNumber: string,
-  sortDirection?: ModelSortDirection | null,
-  filter?: ModelJobApplicationFilterInput | null,
-  limit?: number | null,
-  nextToken?: string | null,
-};
-
-export type ApplicationsByApplicationNumberQuery = {
-  applicationsByApplicationNumber?:  {
-    __typename: "ModelJobApplicationConnection",
-    items:  Array< {
-      __typename: "JobApplication",
-      id: string,
-      applicantID: string,
-      jobRequirementID: string,
-      applicationNumber: string,
       status: string,
       passcode: string,
       createdAt: string,
@@ -700,6 +695,10 @@ export type OnCreateJobRequirementSubscription = {
     rank: string,
     title: string,
     description: string,
+    jobApplications?:  {
+      __typename: "ModelJobApplicationConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -717,6 +716,10 @@ export type OnUpdateJobRequirementSubscription = {
     rank: string,
     title: string,
     description: string,
+    jobApplications?:  {
+      __typename: "ModelJobApplicationConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -734,6 +737,10 @@ export type OnDeleteJobRequirementSubscription = {
     rank: string,
     title: string,
     description: string,
+    jobApplications?:  {
+      __typename: "ModelJobApplicationConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -752,6 +759,10 @@ export type OnCreateApplicantSubscription = {
     name: string,
     resume: string,
     contactInformation: string,
+    jobApplications?:  {
+      __typename: "ModelJobApplicationConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -770,6 +781,10 @@ export type OnUpdateApplicantSubscription = {
     name: string,
     resume: string,
     contactInformation: string,
+    jobApplications?:  {
+      __typename: "ModelJobApplicationConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -788,6 +803,10 @@ export type OnDeleteApplicantSubscription = {
     name: string,
     resume: string,
     contactInformation: string,
+    jobApplications?:  {
+      __typename: "ModelJobApplicationConnection",
+      nextToken?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -804,7 +823,6 @@ export type OnCreateJobApplicationSubscription = {
     id: string,
     applicantID: string,
     jobRequirementID: string,
-    applicationNumber: string,
     status: string,
     passcode: string,
     createdAt: string,
@@ -823,7 +841,6 @@ export type OnUpdateJobApplicationSubscription = {
     id: string,
     applicantID: string,
     jobRequirementID: string,
-    applicationNumber: string,
     status: string,
     passcode: string,
     createdAt: string,
@@ -842,7 +859,6 @@ export type OnDeleteJobApplicationSubscription = {
     id: string,
     applicantID: string,
     jobRequirementID: string,
-    applicationNumber: string,
     status: string,
     passcode: string,
     createdAt: string,

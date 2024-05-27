@@ -6,7 +6,7 @@ export const MyMenu = () => (
             to="/jobRequirements"
             resource="jobRequirements"
             action="list"
-            primaryText="JobRequirements"
+            primaryText="Job Requirements"
         />
         <Menu.Item
             to="/applicants"
@@ -18,19 +18,13 @@ export const MyMenu = () => (
             to="/jobApplications"
             resource="jobApplications"
             action="list"
-            primaryText="Job Applications"
+            primaryText="Applications Kanban"
         />
         <Menu.Item
             to="/checkStatus"
             resource="jobApplications"
             action="status"
             primaryText="Check Status"
-        />
-        <Menu.Item
-            to="/dashboard"
-            resource="jobApplications"
-            action="dashboard"
-            primaryText="Dashboard"
         />
     </Menu>
 );

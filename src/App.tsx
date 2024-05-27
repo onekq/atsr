@@ -20,7 +20,6 @@ import { ApplicantShow } from './components/ApplicantShow';
 import { JobApplicationList } from './components/JobApplicationList';
 import { JobApplicationShow } from './components/JobApplicationShow';
 import { CheckStatusPage } from './components/CheckStatusPage';
-import { JobApplicationDashboard } from './components/JobApplicationDashboard';
 
 import { LoginPage } from './auth/LoginPage';
 import buildAuthProvider from './auth/BuildAuthProvider';
@@ -32,16 +31,16 @@ Amplify.configure(awsExports);
 
 const roleDefinitions = {
     admin: [
-        { action: ["list", "edit", "create", "show", "delete"], resource: "jobRequirements" },
+        { action: ["list", "edit", "create", "show", "delete", "stats"], resource: "jobRequirements" },
         { action: ["read"], resource: "jobRequirements.*" },
         { action: ["list", "show"], resource: "applicants" },
         { action: ["list", "show", "delete"], resource: "jobApplications" },
         { action: ["read"], resource: "jobApplications.*" },
     ],
     HR: [
-        { action: ["list", "edit", "create", "show", "delete"], resource: "jobRequirements" },
+        { action: ["list", "edit", "create", "show", "delete", "stats"], resource: "jobRequirements" },
         { action: ["read"], resource: "jobRequirements.*" },
-        { action: ["list", "show", "dashboard"], resource: "jobApplications" },
+        { action: ["list", "show"], resource: "jobApplications" },
         { action: ["read"], resource: "jobApplications.*" },
     ],
     applicants: [
@@ -61,7 +60,6 @@ const App: React.FC = () => {
         <Admin loginPage={LoginPage} dataProvider={dataProvider} authProvider={authProvider} i18nProvider={i18nProvider} layout={CustomLayout}>
             <CustomRoutes>
                 <Route path="/checkStatus" element={<CheckStatusPage />} />
-                <Route path="/dashboard" element={<JobApplicationDashboard />} />
             </CustomRoutes>
             <Resource name="jobRequirements" list={JobRequirementList} edit={JobRequirementEdit} create={JobRequirementCreate} show={JobRequirementShow} />
             <Resource name="applicants" list={ApplicantList} show={ApplicantShow}/>

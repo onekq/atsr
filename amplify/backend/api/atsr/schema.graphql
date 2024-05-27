@@ -9,6 +9,7 @@ type JobRequirement @model @auth(
   rank: String!
   title: String!
   description: String!
+  jobApplications: [JobApplication] @hasMany(indexName: "byJobRequirement", fields: ["id"])
 }
 
 type Applicant @model @auth(
@@ -23,6 +24,7 @@ type Applicant @model @auth(
   name: String!
   resume: String!
   contactInformation: String!
+  jobApplications: [JobApplication] @hasMany(indexName: "byApplicant", fields: ["id"])
 }
 
 type JobApplication @model @auth(
@@ -34,7 +36,6 @@ type JobApplication @model @auth(
   id: ID!
   applicantID: ID! @index(name: "byApplicant", queryField: "applicationsByApplicant")
   jobRequirementID: ID! @index(name: "byJobRequirement", queryField: "applicationsByJobRequirement")
-  applicationNumber: String! @index(name: "byApplicationNumber", queryField: "applicationsByApplicationNumber")
   status: String!
   passcode: String!
 }

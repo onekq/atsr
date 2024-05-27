@@ -3,7 +3,7 @@ import { useDataProvider, ReferenceField, TextField as RaTextField } from 'react
 import { TextField, Button, Card, CardContent, Typography } from '@mui/material';
 
 export const CheckStatusPage: React.FC = () => {
-    const [applicationNumber, setApplicationNumber] = useState('');
+    const [applicationId, setApplicationId] = useState('');
     const [passcode, setPasscode] = useState('');
     const [application, setApplication] = useState(null);
     const [error, setError] = useState('');
@@ -12,23 +12,18 @@ export const CheckStatusPage: React.FC = () => {
 
     const handleCheckStatus = async () => {
         try {
-            const { data } = await dataProvider.getList('jobApplications', {
-                filter: { applicationsByApplicationNumber: { applicationNumber } },
-                pagination: { page: 1, perPage: 1 },
-                sort: { field: 'id', order: 'ASC' }
-            });
+            const { data } = await dataProvider.getOne('jobApplications', { id: applicationId });
 
-            if (data.length > 0) {
-                const retrievedApplication = data[0];
-                if (retrievedApplication.passcode === passcode) {
-                    setApplication(retrievedApplication);
+            if (data) {
+                if (data.passcode === passcode) {
+                    setApplication(data);
                     setError('');
                 } else {
-                    setError('Invalid application number or passcode.');
+                    setError('Invalid application ID or passcode.');
                     setApplication(null);
                 }
             } else {
-                setError('Invalid application number or passcode.');
+                setError('Invalid application ID or passcode.');
                 setApplication(null);
             }
         } catch (err) {
@@ -40,42 +35,21 @@ export const CheckStatusPage: React.FC = () => {
     return (
         <Card>
             <CardContent>
-                <Typography variant="h5">Check Application Status</Typography>
-                <TextField
-                    label="Application Number"
-                    value={applicationNumber}
-                    onChange={(e) => setApplicationNumber(e.target.value)}
-                    fullWidth
-                    margin="normal"
-                />
-                <TextField
-                    label="Passcode"
-                    type="password"
-                    value={passcode}
-                    onChange={(e) => setPasscode(e.target.value)}
-                    fullWidth
-                    margin="normal"
-                />
-                <Button variant="contained" color="primary" onClick={handleCheckStatus}>
-                    Check Status
-                </Button>
-                {error && <Typography color="error">{error}</Typography>}
+                <Typography variant="h5" gutterBottom>Check Application Status</Typography>
+                <TextField label="Application ID" value={applicationId} onChange={(e) => setApplicationId(e.target.value)} fullWidth margin="normal" />
+                <TextField label="Passcode" type="password" value={passcode} onChange={(e) => setPasscode(e.target.value)} fullWidth margin="normal" />
+                <Button variant="contained" color="primary" onClick={handleCheckStatus} fullWidth style={{ marginTop: 16 }}>Check Status</Button>
+                {error && <Typography color="error" style={{ marginTop: 16 }}>{error}</Typography>}
                 {application && (
-                    <div>
+                    <div style={{ marginTop: 16 }}>
                         <Typography variant="h6">Application Details:</Typography>
-                        <Typography>Application Number: {application.applicationNumber}</Typography>
+                        <Typography>Application ID: {application.id}</Typography>
                         <Typography>Status: {application.status}</Typography>
                         <Typography>Passcode: {application.passcode}</Typography>
-                        <ReferenceField
-                            label="Job Requirement"
-                            source="jobRequirementID"
-                            reference="jobRequirements"
-                            record={application}
-                        >
+                        <ReferenceField label="Job Requirement" source="jobRequirementID" reference="jobRequirements" record={application}>
                             <RaTextField source="department" />
                             <RaTextField source="function" />
                             <RaTextField source="rank" />
-                            <RaTextField source="description" />
                         </ReferenceField>
                     </div>
                 )}

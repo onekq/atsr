@@ -17,6 +17,10 @@ export const onCreateJobRequirement = /* GraphQL */ `subscription OnCreateJobReq
     rank
     title
     description
+    jobApplications {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -35,6 +39,10 @@ export const onUpdateJobRequirement = /* GraphQL */ `subscription OnUpdateJobReq
     rank
     title
     description
+    jobApplications {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -53,6 +61,10 @@ export const onDeleteJobRequirement = /* GraphQL */ `subscription OnDeleteJobReq
     rank
     title
     description
+    jobApplications {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -72,6 +84,10 @@ export const onCreateApplicant = /* GraphQL */ `subscription OnCreateApplicant(
     name
     resume
     contactInformation
+    jobApplications {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -91,6 +107,10 @@ export const onUpdateApplicant = /* GraphQL */ `subscription OnUpdateApplicant(
     name
     resume
     contactInformation
+    jobApplications {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -110,6 +130,10 @@ export const onDeleteApplicant = /* GraphQL */ `subscription OnDeleteApplicant(
     name
     resume
     contactInformation
+    jobApplications {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -127,7 +151,6 @@ export const onCreateJobApplication = /* GraphQL */ `subscription OnCreateJobApp
     id
     applicantID
     jobRequirementID
-    applicationNumber
     status
     passcode
     createdAt
@@ -147,7 +170,6 @@ export const onUpdateJobApplication = /* GraphQL */ `subscription OnUpdateJobApp
     id
     applicantID
     jobRequirementID
-    applicationNumber
     status
     passcode
     createdAt
@@ -167,7 +189,6 @@ export const onDeleteJobApplication = /* GraphQL */ `subscription OnDeleteJobApp
     id
     applicantID
     jobRequirementID
-    applicationNumber
     status
     passcode
     createdAt

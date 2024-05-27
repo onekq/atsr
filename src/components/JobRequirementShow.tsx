@@ -19,6 +19,15 @@ const isErrorWithMessage = (error: unknown): error is { message: string } => {
     return typeof error === 'object' && error !== null && 'message' in error;
 };
 
+const generateCustomID = (length: number) => {
+    const characters = '123456789ABCDEFGHIJKLMNPQRSTUVWXYZ';
+    let result = '';
+    for (let i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    return result;
+};
+
 export const JobRequirementShow = () => {
     const [dialogOpen, setDialogOpen] = useState(false);
     const { id: jobRequirementID } = useParams<{ id: string }>();
@@ -27,27 +36,22 @@ export const JobRequirementShow = () => {
     const theme = useTheme();
     const isSmall = useMediaQuery(theme.breakpoints.down('md'));
 
-    const handleApply = () => {
-        setDialogOpen(true);
-    };
-
-    const handleDialogClose = () => {
-        setDialogOpen(false);
-    };
+    const handleApply = () => setDialogOpen(true);
+    const handleDialogClose = () => setDialogOpen(false);
 
     const handleApplicationSubmit = async (applicant: Applicant) => {
         try {
             const jobApplicationData = {
+                id: generateCustomID(6),
                 applicantID: applicant.id,
                 jobRequirementID,
-                applicationNumber: `APP-${Date.now()}`,
                 status: 'Application Submitted',
                 passcode: `PASS-${Math.random().toString(36).substr(2, 9)}`
             };
             const response = await dataProvider.create('jobApplications', { data: jobApplicationData });
-            const { applicationNumber, passcode } = response.data;
+            const { id, passcode } = response.data;
 
-            notify(`Application submitted successfully. Application Number: ${applicationNumber}, Passcode: ${passcode}`);
+            notify(`Application submitted successfully. Application ID: ${id}, Passcode: ${passcode}`);
             setDialogOpen(false);
         } catch (error: unknown) {
             if (isErrorWithMessage(error)) {
@@ -63,20 +67,12 @@ export const JobRequirementShow = () => {
             <SimpleShowLayout>
                 <Box display="flex" flexDirection={isSmall ? 'column' : 'row'} width="100%">
                     <Box width={isSmall ? '100%' : '30%'} marginRight={isSmall ? 0 : 2} display="flex" flexDirection="column" justifyContent="space-between" height="300px">
-                        <Labeled label="Department">
-                            <TextField source="department" />
-                        </Labeled>
-                        <Labeled label="Rank">
-                            <TextField source="rank" />
-                        </Labeled>
-                        <Labeled label="Title">
-                            <TextField source="title" />
-                        </Labeled>
+                        <Labeled label="Department"><TextField source="department" /></Labeled>
+                        <Labeled label="Rank"><TextField source="rank" /></Labeled>
+                        <Labeled label="Title"><TextField source="title" /></Labeled>
                     </Box>
                     <Box flex={1} display="flex" flexDirection="column">
-                        <Labeled label="Description">
-                            <RichTextField source="description" />
-                        </Labeled>
+                        <Labeled label="Description"><RichTextField source="description" /></Labeled>
                     </Box>
                 </Box>
                 <IfCanAccess action="delete" resource="jobRequirements">
@@ -85,11 +81,7 @@ export const JobRequirementShow = () => {
                 <IfCanAccess action="apply" resource="jobRequirements">
                     <Button label="Apply" onClick={handleApply} />
                 </IfCanAccess>
-                <ApplyDialog
-                    open={dialogOpen}
-                    onClose={handleDialogClose}
-                    onApply={handleApplicationSubmit}
-                />
+                <ApplyDialog open={dialogOpen} onClose={handleDialogClose} onApply={handleApplicationSubmit} />
             </SimpleShowLayout>
         </Show>
     );

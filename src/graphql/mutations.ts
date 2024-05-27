@@ -18,6 +18,10 @@ export const createJobRequirement = /* GraphQL */ `mutation CreateJobRequirement
     rank
     title
     description
+    jobApplications {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -37,6 +41,10 @@ export const updateJobRequirement = /* GraphQL */ `mutation UpdateJobRequirement
     rank
     title
     description
+    jobApplications {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -56,6 +64,10 @@ export const deleteJobRequirement = /* GraphQL */ `mutation DeleteJobRequirement
     rank
     title
     description
+    jobApplications {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -75,6 +87,10 @@ export const createApplicant = /* GraphQL */ `mutation CreateApplicant(
     name
     resume
     contactInformation
+    jobApplications {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -94,6 +110,10 @@ export const updateApplicant = /* GraphQL */ `mutation UpdateApplicant(
     name
     resume
     contactInformation
+    jobApplications {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -113,6 +133,10 @@ export const deleteApplicant = /* GraphQL */ `mutation DeleteApplicant(
     name
     resume
     contactInformation
+    jobApplications {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -130,7 +154,6 @@ export const createJobApplication = /* GraphQL */ `mutation CreateJobApplication
     id
     applicantID
     jobRequirementID
-    applicationNumber
     status
     passcode
     createdAt
@@ -150,7 +173,6 @@ export const updateJobApplication = /* GraphQL */ `mutation UpdateJobApplication
     id
     applicantID
     jobRequirementID
-    applicationNumber
     status
     passcode
     createdAt
@@ -170,7 +192,6 @@ export const deleteJobApplication = /* GraphQL */ `mutation DeleteJobApplication
     id
     applicantID
     jobRequirementID
-    applicationNumber
     status
     passcode
     createdAt

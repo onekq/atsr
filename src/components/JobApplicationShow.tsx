@@ -6,6 +6,7 @@ import { JobRequirementLinkField } from './JobRequirementLinkField';
 export const JobApplicationShow = () => (
     <Show>
         <SimpleShowLayout>
+            <TextField source="id" label = "Application ID" />
             <JobRequirementLinkField source="jobRequirementID" label="Job ID" />
             <ReferenceField source="jobRequirementID" reference="JobRequirements" label="Department">
                 <TextField source="department" />
